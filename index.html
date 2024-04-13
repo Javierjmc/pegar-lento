@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Slow Paste</title>
+</head>
+<body>
+<textarea id="textToPaste" rows="10" cols="50"></textarea><br>
+<button onclick="pasteSlowly()">Pegar lento</button>
+
+<script>
+function pasteSlowly() {
+    var textToPaste = document.getElementById("textToPaste").value;
+    var outputTextbox = document.createElement('textarea');
+    document.body.appendChild(outputTextbox);
+
+    // Función para pegar el texto con un retraso entre cada caracter
+    function pasteText(index) {
+        if (index < textToPaste.length) {
+            outputTextbox.value += textToPaste[index];
+            outputTextbox.scrollTop = outputTextbox.scrollHeight;
+            setTimeout(function() {
+                pasteText(index + 1);
+            }, 100); // Cambia este valor para ajustar la velocidad de escritura (en milisegundos)
+        }
+    }
+
+    // Inicia el proceso de pegado lento
+    pasteText(0);
+}
+</script>
+</body>
+</html>
